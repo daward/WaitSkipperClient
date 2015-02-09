@@ -2,6 +2,7 @@
   <library name="google-play-services">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../google-play-services/libs/google-play-services.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/gson-2.3.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

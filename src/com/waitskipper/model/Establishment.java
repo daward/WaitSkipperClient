@@ -1,17 +1,12 @@
 package com.waitskipper.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by acheron0 on 11/23/2014.
  */
 public class Establishment
 {
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @SerializedName("Name")
+    public String name;
 }

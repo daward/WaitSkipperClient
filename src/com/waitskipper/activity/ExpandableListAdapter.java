@@ -7,23 +7,24 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import com.waitskipper.R;
+import com.waitskipper.logic.IEstablishmentListener;
 import com.waitskipper.model.Establishment;
 
 import java.util.ArrayList;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter
+public class ExpandableListAdapter
+        extends BaseExpandableListAdapter
+        implements IEstablishmentListener
 {
 	private LayoutInflater inflater;
     private final Context mContext;
-    private final ArrayList<Establishment> mEstablishments;
+    private ArrayList<Establishment> mEstablishments = new ArrayList<Establishment>();
 
-	public ExpandableListAdapter(Context context, ArrayList<Establishment> establishments)
+	public ExpandableListAdapter(Context context)
 	{
         mContext = context;
         // Create Layout Inflator
         inflater = LayoutInflater.from(context);
-
-        mEstablishments = establishments;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         convertView = inflater.inflate(R.layout.establishmentlist, parentView, false);
 
         // Get grouprow.xml file elements and set values
-        ((TextView) convertView.findViewById(R.id.name)).setText(parent.getName());
+        ((TextView) convertView.findViewById(R.id.name)).setText(parent.name);
 
         //Log.i("onCheckedChanged", "isChecked: "+parent.isChecked());
 
@@ -61,7 +62,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         convertView = inflater.inflate(R.layout.establishment, parentView, false);
 
         // Get childrow.xml file elements and set values
-        ((TextView) convertView.findViewById(R.id.name)).setText(parent.getName());
+        ((TextView) convertView.findViewById(R.id.name)).setText(parent.name);
 
         return convertView;
     }
@@ -71,6 +72,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     {
         //Log.i("Childs", groupPosition+"=  getChild =="+childPosition);
         return mEstablishments.get(groupPosition);
+    }
+
+    public void establishmentsChanged(final ArrayList<Establishment> newEstablishments)
+    {
+        if (newEstablishments == null)
+            return;
+
+        mEstablishments = newEstablishments;
+
+        // Refresh ExpandableListView data
+        notifyDataSetChanged();
     }
 
     //Call when child row clicked
@@ -103,13 +115,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     public long getGroupId(int groupPosition)
     {
         return groupPosition;
-    }
-
-    @Override
-    public void notifyDataSetChanged()
-    {
-        // Refresh List rows
-        super.notifyDataSetChanged();
     }
 
     @Override
