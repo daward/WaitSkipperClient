@@ -17,14 +17,22 @@ public class ExpandableListAdapter
         implements IEstablishmentListener
 {
 	private LayoutInflater inflater;
-    private final Context mContext;
-    private ArrayList<Establishment> mEstablishments = new ArrayList<Establishment>();
+    private final ArrayList<Establishment> mEstablishments;
 
 	public ExpandableListAdapter(Context context)
 	{
-        mContext = context;
         // Create Layout Inflator
         inflater = LayoutInflater.from(context);
+
+        mEstablishments = new ArrayList<Establishment>();
+    }
+
+    public void establishmentsChanged(final ArrayList<Establishment> newEstablishments)
+    {
+        mEstablishments.clear();
+        mEstablishments.addAll(newEstablishments);
+        notifyDataSetChanged();
+
     }
 
     @Override
@@ -74,17 +82,6 @@ public class ExpandableListAdapter
         return mEstablishments.get(groupPosition);
     }
 
-    public void establishmentsChanged(final ArrayList<Establishment> newEstablishments)
-    {
-        if (newEstablishments == null)
-            return;
-
-        mEstablishments = newEstablishments;
-
-        // Refresh ExpandableListView data
-        notifyDataSetChanged();
-    }
-
     //Call when child row clicked
     @Override
     public long getChildId(int groupPosition, int childPosition)
@@ -115,6 +112,13 @@ public class ExpandableListAdapter
     public long getGroupId(int groupPosition)
     {
         return groupPosition;
+    }
+
+    @Override
+    public void notifyDataSetChanged()
+    {
+        // Refresh List rows
+        super.notifyDataSetChanged();
     }
 
     @Override

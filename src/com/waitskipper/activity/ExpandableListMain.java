@@ -6,6 +6,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.waitskipper.R;
 import com.waitskipper.logic.EstablishmentManager;
 import com.waitskipper.logic.LocationManager;
 
@@ -26,6 +27,7 @@ public class ExpandableListMain extends ExpandableListActivity
         }
 
         mAdapter = new ExpandableListAdapter(getBaseContext());
+        setListAdapter(mAdapter);
         establishmentManager = new EstablishmentManager(Volley.newRequestQueue(this), mAdapter);
         locationManager = new LocationManager(new GoogleApiClient.Builder(this), establishmentManager);
 

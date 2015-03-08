@@ -20,8 +20,8 @@ public class LocationManager implements
     private static final long ONE_MIN = 1000 * 60;
     private static final long TWO_MIN = ONE_MIN * 2;
     private static final long FIVE_MIN = ONE_MIN * 5;
-    private static final long POLLING_FREQ = 1000 * 30;
-    private static final long FASTEST_UPDATE_FREQ = 1000 * 5;
+    private static final long POLLING_FREQ = 1000 * 3;
+    private static final long FASTEST_UPDATE_FREQ = 1000 * 1;
     private static final float MIN_ACCURACY = 25.0f;
     private static final float MIN_LAST_READ_ACCURACY = 500.0f;
     private static final float JITTER = 5;
@@ -71,7 +71,9 @@ public class LocationManager implements
     public void onConnected(Bundle bundle)
     {
         LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
+            mGoogleApiClient,
+            mLocationRequest,
+            this);
     }
 
     public void connect()
