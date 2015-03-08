@@ -2,6 +2,7 @@ package com.waitskipper.activity;
 
 import android.app.ExpandableListActivity;
 import android.os.Bundle;
+import android.widget.ExpandableListView;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -31,7 +32,9 @@ public class ExpandableListMain extends ExpandableListActivity
         establishmentManager = new EstablishmentManager(Volley.newRequestQueue(this), mAdapter);
         locationManager = new LocationManager(new GoogleApiClient.Builder(this), establishmentManager);
 
-        getExpandableListView().setDividerHeight(3);
+        ExpandableListView listView = getExpandableListView();
+        listView.setAdapter(mAdapter);
+        listView.setDividerHeight(3);
         registerForContextMenu(getExpandableListView());
     }
 
